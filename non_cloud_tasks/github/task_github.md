@@ -1,25 +1,25 @@
-- [Problem to Be Solved](task_github.md#problem-to-be-solved)
+- [Problem to Be Solved](task_github.md#problem-to-be-solved-in-this-lab)
   * [Explanation of the Solution](task_github.md#explanation-of-the-solution)
   * [PRE-REQUISITES](task_github.md#pre-requisites)
 - [Creating GitHub resources](task_github.md#creating-github-resources)
-  * [TASK 1 - Create GitHub Organization settings](task_github.md#task-1-create-github-organization-settings)
-  * [TASK 2 - Create an organization secret](task_github.md#task-2-create-an-organization-secret)
-  * [TASK 3 - Create teams and memberships](task_github.md#task-3-create-teams-and-memberships)
-  * [TASK 4 - Create a security manager](task_github.md#task-4-create-a-security-manager)
-  * [TASK 5 - Create a Private Repository](task_github.md#task-5-create-a-private-repository)
-  * [TASK 6 - Form TF Output](task_github.md#task-6-form-tf-output)
-  * [TASK 7 - Configure a remote data source](task_github.md#task-7-configure-a-remote-data-source)
-  * [TASK 8 - Create a Secure Public Repository](task_github.md#task-8-create-a-secure-public-repository)
+  * [TASK 1 - Create GitHub Organization settings](task_github.md#task-1---create-github-organization-settings)
+  * [TASK 2 - Create an organization secret](task_github.md#task-2---create-an-organization-secret)
+  * [TASK 3 - Create teams and memberships](task_github.md#task-3---create-teams-and-memberships)
+  * [TASK 4 - Create a security manager](task_github.md#task-4---create-a-security-manager)
+  * [TASK 5 - Create a Private Repository](task_github.md#task-5---create-a-private-repository)
+  * [TASK 6 - Form TF Output](task_github.md#task-6---form-tf-output)
+  * [TASK 7 - Configure a remote data source](task_github.md#task-7---configure-a-remote-data-source)
+  * [TASK 8 - Create a Secure Public Repository](task_github.md#task-8---create-secure-public-repositories)
 - [Working with Terraform state](task_github.md#working-with-terraform-state)
-  * [TASK 9 - Move resources](task_github.md#task-9-move-resources)
-  * [TASK 10 - Move state to Postgres database](task_github.md#task-10-move-state-to-postgres-database)
-  * [TASK 11 - Import resources](task_github.md#task-11-import-resources)
+  * [TASK 9 - Move resources](task_github.md#task-9---move-resources)
+  * [TASK 10 - Move state to Postgres database](task_github.md#task-10---move-state-to-postgres-database)
+  * [TASK 11 - Import resources](task_github.md#task-11---import-resources)
 - [Configuring GitHub Actions](task_github.md#configuring-github-Actions)
-  * [TASK 12 - Use data discovery](task_github.md#task-12-use-data-discovery)
-  * [TASK 13 - Configuring GitHub Action Workflow](task_github.md#task-13-configuring-github-action-workflow)
+  * [TASK 12 - Use data discovery](task_github.md#task-12---use-data-discovery)
+  * [TASK 13 - Configuring GitHub Action Workflow](task_github.md#task-13---configuring-github-action-workflow)
 - [Advanced tasks](task_github.md#advanced-tasks)
-  * [TASK 14 - Create dynamically manageable resources](task_github.md#task-14-create-dynamically-manageable-resources)
-  * [TASK 15 - Modules](task_github.md#task-15-modules)
+  * [TASK 14 - Create dynamically manageable resources](task_github.md#task-14---create-dynamically-manageable-resources)
+  * [TASK 15 - Modules](task_github.md#task-15---modules)
   
 
 
@@ -27,7 +27,7 @@
 This lab shows you how to use Terraform to configure an organization, members, teams, and repositories in GitHub. This task is binding to real production needs – for instance, the DevOps team centrally manages the state of the GitHub repositories within their organization.
 
  
-### Explanation of the Solution 
+### Explanation of the Solution
 You will use Terraform with the GitHub provider to create 2 separate Terraform configurations:
  1) Base configuration
  2) Repos configuration
@@ -145,6 +145,8 @@ Create a team and team's members for your GitHub organization:
 -	Create 1 member (`role="member"`) and add this member to one of the the teams.
 
 **Hint**: Use your colleagues' GitHub account username as a member in terms of this lab.
+
+**Hint**: [The API no longer supports working with the new set of Projects](https://stackoverflow.com/questions/73268885/unable-to-create-project-in-repository-or-organisation-using-github-rest-api); it only supports classic projects. Since classic projects cannot be created in GitHub anymore, you should either use [GraphQL](https://docs.github.com/en/graphql/reference/mutations) or create them manually.
 
 Run `terraform validate` and `terraform fmt` to check if your configuration is valid and fits to a canonical format and style. Do this each time before applying your changes.
 Run `terraform plan` to see your changes.

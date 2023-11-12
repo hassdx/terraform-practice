@@ -1,23 +1,23 @@
-- [Problem to Be Solved](task_azure.md#problem-to-be-solved)
+- [Problem to Be Solved](task_azure.md#problem-to-be-solved-in-this-lab)
   * [Explanation of the Solution](task_azure.md#explanation-of-the-solution)
   * [PRE-REQUISITES](task_azure.md#pre-requisites)
 - [Creating Infrastructure](task_azure.md#creating-infrastructure)
-  * [TASK 1 - Creating Virtual Network](task_azure.md#task-1-creating-virtual-network)
-  * [TASK 2 - Create resources for SSH Authentication](task_azure.md#task-2-create-resources-for-ssh-authentication)
-  * [TASK 3 - Create a Storage account with a Storage Container](task_azure.md#task-3-create-a-storage-account-with-a-storage-container)
-  * [TASK 4 - Create IAM resources](task_azure.md#task-4-create-iam-resources)
-  * [TASK 5 - Create a Network Security Group](task_azure.md#task-5-create-a-network-security-group)
-  * [TASK 6 - Form TF Output](task_azure.md#task-6-form-tf-output)
-  * [TASK 7 - Configure a remote data source](task_azure.md#task-7-configure-a-remote-data-source)
-  * [TASK 8 - Create Virtual Machine/Scale Set/Load Balancer](task_azure.md#task-8-create-virtual-machinescale-setload-balancer)
-  * [TASK 9 - Use data discovery](task_azure.md#task-9-use-data-discovery)
+  * [TASK 1 - Creating Virtual Network](task_azure.md#task-1---creating-virtual-network)
+  * [TASK 2 - Create resources for SSH Authentication](task_azure.md#task-2---create-resources-for-ssh-authentication)
+  * [TASK 3 - Create a Storage account with a Storage Container](task_azure.md#task-3---create-a-storage-account-with-a-storage-container)
+  * [TASK 4 - Create IAM resources](task_azure.md#task-4---create-iam-resources)
+  * [TASK 5 - Create a Network Security Group](task_azure.md#task-5---create-a-network-security-group)
+  * [TASK 6 - Form TF Output](task_azure.md#task-6---form-tf-output)
+  * [TASK 7 - Configure a remote data source](task_azure.md#task-7---configure-a-remote-data-source)
+  * [TASK 8 - Create Virtual Machine/Scale Set/Load Balancer](task_azure.md#task-8---create-virtual-machinescale-setload-balancer)
+  * [TASK 9 - Use data discovery](task_azure.md#task-9---use-data-discovery)
 - [Working with Terraform state](task_azure.md#working-with-terraform-state)
-  * [TASK 10 - Move resources](task_azure.md#task-10-move-resources)
-  * [TASK 11 - Move state to a storage container](task_azure.md#task-11-move-state-to-a-storage-container)
-  * [TASK 12 - Import resources](task_azure.md#task-12-import-resources)
+  * [TASK 10 - Move resources](task_azure.md#task-10---move-resources)
+  * [TASK 11 - Move state to a storage container](task_azure.md#task-11---move-state-to-a-storage-container)
+  * [TASK 12 - Import resources](task_azure.md#task-12---import-resources)
 - [Advanced tasks](task_azure.md#advanced-tasks)
-  * [TASK 13 - Expose node output with nginx](task_azure.md#task-13-expose-node-output-with-nginx)
-  * [TASK 14 - Modules](task_azure.md#task-14-modules)
+  * [TASK 13 - Expose node output with nginx](task_azure.md#task-13---expose-node-output-with-nginx)
+  * [TASK 14 - Modules](task_azure.md#task-14---modules)
   
 
 
@@ -25,7 +25,7 @@
  This lab shows you how to use Terraform to create infrastructure in Azure including scaling sets, virtual network, subnets, network security groups and IAM managed identity. Each virtual machine will report its data to a specified storage container on startup. This task is binding to real production needs – for instance developers could request virtual machines with ability to writing debug information to a storage container.
 
  
-### Explanation of the Solution 
+### Explanation of the Solution
 You will use Terraform with Azure provider to create 2 separate Terraform configurations:
  1) Base configuration
  2) Compute configuration

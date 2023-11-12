@@ -1,23 +1,23 @@
-- [Problem to Be Solved](general_task.md#problem-to-be-solved)
+- [Problem to Be Solved](general_task.md#problem-to-be-solved-in-this-lab)
   * [Explanation of the Solution](general_task.md#explanation-of-the-solution)
   * [PRE-REQUISITES](general_task.md#pre-requisites)
 - [Creating Infrastructure](general_task.md#creating-infrastructure)
-  * [TASK 1 - Creating Network Resources](general_task.md#task-1-creating-network-resources)
-  * [TASK 2 - Create resources for SSH Authentication](general_task.md#task-2-create-resources-for-ssh-authentication)
-  * [TASK 3 - Create an Object Storage](general_task.md#task-3-create-an-object-storage)
-  * [TASK 4 - Create IAM Resources](general_task.md#task-4-create-iam-resources)
-  * [TASK 5 - Configure Network Security](general_task.md#task-5-configure-network-security)
-  * [TASK 6 - Form TF Output](general_task.md#task-6-form-tf-output)
-  * [TASK 7 - Configure a remote data source](general_task.md#task-7-configure-a-remote-data-source)
-  * [TASK 8 - Configure application instances behind a Load Balancer](general_task.md#task-8-configure-application-instances-behind-a-load-balancer)
-  * [TASK 9 - Use data discovery](general_task.md#task-9-use-data-discovery)
+  * [TASK 1 - Creating Network Resources](general_task.md#task-1---creating-network-resources)
+  * [TASK 2 - Create resources for SSH Authentication](general_task.md#task-2---create-resources-for-ssh-authentication)
+  * [TASK 3 - Create an Object Storage](general_task.md#task-3---create-an-object-storage)
+  * [TASK 4 - Create IAM Resources](general_task.md#task-4---create-iam-resources)
+  * [TASK 5 - Configure Network Security](general_task.md#task-5---configure-network-security)
+  * [TASK 6 - Form TF Output](general_task.md#task-6---form-tf-output)
+  * [TASK 7 - Configure a remote data source](general_task.md#task-7---configure-a-remote-data-source)
+  * [TASK 8 - Configure application instances behind a Load Balancer](general_task.md#task-8---configure-application-instances-behind-a-load-balancer)
+  * [TASK 9 - Use data discovery](general_task.md#task-9---use-data-discovery)
 - [Working with Terraform state](general_task.md#working-with-terraform-state)
-  * [TASK 10 - Move resources](general_task.md#task-10-move-resources)
-  * [TASK 11 - Move state to other backends](general_task.md#task-11-move-state-to-other-backends)
-  * [TASK 12 - Import resources](general_task.md#task-12-import-resources)
+  * [TASK 10 - Move resources](general_task.md#task-10---move-resources)
+  * [TASK 11 - Move state to other backends](general_task.md#task-11---move-state-to-other-backends)
+  * [TASK 12 - Import resources](general_task.md#task-12---import-resources)
 - [Advanced tasks](general_task.md#advanced-tasks)
-  * [TASK 13 - Expose node output with nginx](general_task.md#task-13-expose-node-output-with-nginx)
-  * [TASK 14 - Modules](general_task.md#task-14-modules)
+  * [TASK 13 - Expose node output with nginx](general_task.md#task-13---expose-node-output-with-nginx)
+  * [TASK 14 - Modules](general_task.md#task-14---modules)
   
 
 
@@ -25,7 +25,7 @@
  This lab shows you how to use Terraform to create infrastructure in cloud environment including compute, network, security and IAM resources. Each cloud compute instance will report its data to a specified object storage on startup. This task is binding to real production needs – for instance, developers could request compute instances with ability to writing debug information to object storage.
 
  
-### Explanation of the Solution 
+### Explanation of the Solution
 You will use Terraform with cloud provider to create 2 separate Terraform configurations/states:
  1) Base configuration (Where we'll create some resource required in another configuration)
  2) Compute configuration (Here we'll create autoscaling group with node running behind the Load Balancer)
