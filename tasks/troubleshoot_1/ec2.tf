@@ -10,7 +10,7 @@ resource "aws_key_pair" "this_key" {
 
 resource "aws_instance" "this_instance" {
   ami                  = data.aws_ami.amazon_linux_2.id
-  instance_type        = "t2.micro"
+  instance_type        = "t3.micro"
   subnet_id            = aws_subnet.this_subnet[0].id
   key_name             = aws_key_pair.this_key.key_name
   security_groups      = [aws_security_group.this_sg.id]
@@ -53,7 +53,7 @@ resource "null_resource" "remote_exec" {
       "sudo systemctl enable nginx",
       "sudo systemctl start nginx",
       "rm -rf /tmp/awscliv2.zip /tmp/aws && curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip",
-      "unzip awscliv2.zip",
+      "unzip -qq awscliv2.zip",
       "sudo ./aws/install --update",
       "aws s3 cp s3://${aws_s3_bucket.this.id}/index.html ./ 2>/dev/null",
       "sudo mv index.html /usr/share/nginx/html/ -f"
