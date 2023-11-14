@@ -216,7 +216,7 @@ Create IAM resources:
 - Create an `iam.tf` file. Create IAM resources there.
   ### For AWS:
   -	**IAM group** (`name={StudentName}-{StudentSurname}-01-group`).
-  -	**IAM policy** with write permission for "epam-aws-tf-lab" bucket only (`name=write-to-epam-tf-lab-${random_string.my_numbers.result}`). 
+  -	**IAM policy** (`name=write-to-epam-tf-lab`) with write permission for "epam-aws-tf-lab$-{random_string.my_numbers.result}" bucket only. 
 
     **Hint**: store your policy as json document side by side with configurations (or create 'files' subfolder for storing policy) and use templatefile() function to transfer IAM policy with imported S3 bucket name to a resource.
   -	Create **IAM role**, attach the policy to it and create **IAM instance profile** for this IAM role. Allow to assume this role for ec2 service.
