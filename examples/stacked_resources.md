@@ -85,11 +85,6 @@ resource "aws_instance" "lab_instance" {
     volume_size    = 8
     volume_type    = "gp2"
   }
-  ebs_block_device {
-    device_name    = "/dev/sdb"
-    volume_size    = 8
-    volume_type    = "gp2"
-  }
 }
 
 resource "aws_ebs_volume" "lab_ebs" {
