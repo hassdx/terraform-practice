@@ -373,7 +373,7 @@ Create required resources:
 - Create `azurerm_public_ip` resource (`name="epam-tf-lab"`)
 - Create `azurerm_lb` resource (`name="epam-tf-lab"`, with `frontend_ip_configuration` with reference on the created public IP address)
 - Create `azurerm_lb_backend_address_pool` resource  with reference on the created load balancer
-- Create an `azurerm_linux_virtual_machine_scale_set` resource. (`name="epam-tf-lab"`,`instances=2`,`sku="Standard_F2"`, `custom_data=base64encode("{init_script_file}")`, source_image_reference with `publisher="Canonical"`, `offer="UbuntuServer"`, `sku="20.04-LTS"`, `version="latest"`). The network interface of future virtual machines should be in the previously created subnet with the previosly created network security group. Authentication should be through created SSH key.
+- Create an `azurerm_linux_virtual_machine_scale_set` resource. (`name="epam-tf-lab"`,`instances=2`,`sku="Standard_F2"`, `custom_data=base64encode("{init_script_file}")`, source_image_reference with `publisher="Canonical"`, `offer="0001-com-ubuntu-server-focal"`, `sku="20_04-LTS"`, `version="latest"`). The network interface of future virtual machines should be in the previously created subnet with the previosly created network security group. Authentication should be through created SSH key.
 - Create `azurerm_lb_probe` (`name="epam-tf-lab"`, `protocol="Http"`, `port=80`, `request_path="/"`)
 - Create `azurerm_lb_rule` (`protocol="Tcp"`, `frontend_port=80`, `backend_port=80`) with reference to the previosly created frontend IP configuration name, IDs of the backend address pool and probe ID.
 
