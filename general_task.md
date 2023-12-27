@@ -18,13 +18,12 @@
 - [Advanced tasks](general_task.md#advanced-tasks)
   * [TASK 13 - Expose node output with nginx](general_task.md#task-13---expose-node-output-with-nginx)
   * [TASK 14 - Modules](general_task.md#task-14---modules)
-  
 
 
 # Problem to Be Solved in This Lab
  This lab shows you how to use Terraform to create infrastructure in cloud environment including compute, network, security and IAM resources. Each cloud compute instance will report its data to a specified object storage on startup. This task is binding to real production needs – for instance, developers could request compute instances with ability to writing debug information to object storage.
 
- 
+
 ### Explanation of the Solution
 You will use Terraform with cloud provider to create 2 separate Terraform configurations/states:
  1) Base configuration (Where we'll create some resource required in another configuration)
@@ -40,23 +39,24 @@ After you’ve created configuration, we will work on its optimization like usin
 
 ## PRE-REQUISITES
 1. Fork current repository. A fork is a copy of a project and this allows you to make changes without affecting the original project.
-2. Clone the forked repository to you workstation. All actions should be done under your fork and Terraform gets it context from your local clone working directory: 
-    - Change current directory to `/tf-epam-lab/base` folder and create `root.tf` file. 
+1. Clone the forked repository to you workstation. All actions should be done under your fork and Terraform gets it context from your local clone working directory:
+    - Change current directory to `/tf-epam-lab/base` folder and create `root.tf` file.
     - Add a `terraform {}` empty block to this file.
-    - Create epmty files `variables.tf` and `locals.tf`. These files witll be used for variables and local variables, but also they are required for automated proctor checks.
+    - Create epmty files `variables.tf` and `locals.tf`. These files will be used for variables and local variables, but also they are required for automated proctor checks.
     - For AWS:
-      - Create an AWS provider block inside `root.tf` file with the following attributes: 
+      - Create an AWS provider block inside `root.tf` file with the following attributes:
         - `region = "us-east-1"`
         - `shared_credentials_file = "~/.aws/credentials"`.
-        
+
         **Hint**: Add your AWS credentials to the `~/.aws/credentials` file. Refer to [this](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) document for details.
 
     - For GCP:
       - Create a GCP provider block inside `root.tf` file with the following attributes:
         - `project = "{gcp_project_id}"`
         - `credentials = file("~/.gcp/credentials.json"`.
-        
+
         **Hint**: Add your GCP service account credentials to the `~/.gcp/credentials.json` file. Refer to [this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started) document for details.
+
     - For Azure:
       - Create an Azure provider block inside `root.tf` file with the following attributes:
         - `skip_provider_registration = true`
@@ -67,13 +67,14 @@ After you’ve created configuration, we will work on its optimization like usin
       **Hint**: There are other ways to authenticate terraform provider before the usage. Refer to [this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs) document for details.
 
 
-Run `terraform init` to initialize your configuration. 
-Run `terraform validate` and `terraform fmt` to check if your configuration is valid and fits to a canonical format and style. Do this each time before applying your changes.
-Run `terraform plan` to ensure that there are no changes.
+    Run `terraform init` to initialize your configuration.
+    Run `terraform validate` and `terraform fmt` to check if your configuration is valid and fits to a canonical format and style. Do this each time before applying your changes.
+    Run `terraform plan` to ensure that there are no changes.
 
-Please use **underscore** Terraform resources naming, e.g. `my_resource` instead of `my-resource`.
+    Please use **underscore** Terraform resources naming, e.g. `my_resource` instead of `my-resource`.
 
-3. Change current directory  to `~/tf-epam-lab/compute` and repeat the steps in [2].
+
+1. Change current directory  to `~/tf-epam-lab/compute` and repeat the steps in [2].
 
 You are ready for the lab!
 
@@ -106,14 +107,14 @@ Create a network stack for your infrastructure:
 -	**Virtual Network**: `name={StudentName}-{StudentSurname}-01-vnet-us-central`, `cidr=10.10.0.0/16`, `location="centralus"`
 -	**Subnets**: `name={StudentName}-{StudentSurname}-01-subnet`, `cidr=10.10.1.0/24`
 
-**Hint**: A local value assigns a name to an expression, so you can use it multiple times within a module without repeating it. 
+**Hint**: A local value assigns a name to an expression, so you can use it multiple times within a module without repeating it.
 
-Store all resources from this task in the `network.tf` file.
+Store all resources of this task in the `network.tf` file.
 Store all locals in `locals.tf`.
 If you use terraform variables, store them in `variables.tf`.
 
 Equip all possible resources with following tags or labels:
-  - `Terraform=true`, 
+  - `Terraform=true`,
   - `Project=epam-tf-lab`
   - `Owner={StudentName}_{StudentSurname}`
 
@@ -138,7 +139,7 @@ Ensure that the current directory is `~/tf-epam-lab/base`
 Create a custom ssh key-pair to access your cloud compute instances:
 
 - Create your ssh key pair [refer to this document](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws)
-- Create a `variables.tf` file with empty variable `ssh_key` but with the following description `Provides custom public ssh key`. 
+- Create a `variables.tf` file with empty variable `ssh_key` but with the following description `Provides custom public ssh key`.
 - Create a `ssh.tf` file for SSH resources. Use `ssh_key` variable as a public key source.
   ### For AWS:
   - Create `aws_key_pair` resource with the name `epam-tf-ssh-key`.
@@ -146,10 +147,10 @@ Create a custom ssh key-pair to access your cloud compute instances:
   - Create `google_compute_project_metadata` resource.
   - Create a metadata item key `shared_ssh_key`, as a value use the SSH public key.
   ### For Azure:
-  - Create `azurerm_ssh_public_key` resource with the name `epam-tf-ssh-key`. 
-  
+  - Create `azurerm_ssh_public_key` resource with the name `epam-tf-ssh-key`.
+
   **Note** : Despite the fact that a public SSH key is not a secret, in terms of this lab you should not store it in the repository. The public key should be passed as an environment variable:
-  
+
     `export TF_VAR_ssh_key="YOUR_PUBLIC_SSH_KEY_STRING"`
 
   <mark>Never store you secrets inside the code!</mark>
@@ -157,7 +158,7 @@ Create a custom ssh key-pair to access your cloud compute instances:
 - Run `terraform plan` and observe the output.
 
 Equip all possible resources with following tags or labels:
-  - `Terraform=true`, 
+  - `Terraform=true`
   - `Project=epam-tf-lab`
   - `Owner={StudentName}_{StudentSurname}`
 
@@ -181,7 +182,7 @@ Create an object bucket as the storage for your infrastructure:
 -	Create file `storage.tf`. Storage resources should be described there.
 - Create an object cloud storage resource.
   ### For AWS:
-  - Create an S3 bucket. Name this bucket `epam-tf-lab-${random_string.my_numbers.result}` to provide it with a unique name. 
+  - Create an S3 bucket. Name this bucket `epam-tf-lab-${random_string.my_numbers.result}` to provide it with a unique name.
   ### For GCP:
   - Create a cloud storage bucket. Name this bucket `epam-tf-lab-${random_string.my_numbers.result}` to provide it with a unique name.
   ### For Azure:
@@ -193,7 +194,7 @@ Create an object bucket as the storage for your infrastructure:
 -	Set default permissions for the object storage as private. Never share your bucket with the whole world!
 
 Equip all possible resources with following tags or labels:
-  - `Terraform=true`, 
+  - `Terraform=true`
   - `Project=epam-tf-lab`
   - `Owner={StudentName}_{StudentSurname}`
 
@@ -216,7 +217,7 @@ Create IAM resources:
 - Create an `iam.tf` file. Create IAM resources there.
   ### For AWS:
   -	**IAM group** (`name={StudentName}-{StudentSurname}-01-group`).
-  -	**IAM policy** (`name=write-to-epam-tf-lab`) with write permission for "epam-aws-tf-lab$-{random_string.my_numbers.result}" bucket only. 
+  -	**IAM policy** (`name=write-to-epam-tf-lab`) with write permission for "epam-aws-tf-lab$-{random_string.my_numbers.result}" bucket only.
 
     **Hint**: store your policy as json document side by side with configurations (or create 'files' subfolder for storing policy) and use templatefile() function to transfer IAM policy with imported S3 bucket name to a resource.
   -	Create **IAM role**, attach the policy to it and create **IAM instance profile** for this IAM role. Allow to assume this role for ec2 service.
@@ -224,13 +225,13 @@ Create IAM resources:
   -	Create **Service account** (`account_id={StudentName}-{StudentSurname}-01-account`).
   - Assign the `Storage Object Creator` role to the Service account.
   ### For Azure:
-  - **User Managed Identity** (`name={StudentName}-{StudentSurname}-01`)
+  - **User Assigned Identity** (`name={StudentName}-{StudentSurname}-01`)
   -	**Role** (`name={StudentName}-{StudentSurname}-01`) with write permission for storage account created on the previous stage.
-  - Assign the Role to the User Managed Identity.
+  - Assign the Role to the User Assigned Identity.
 
 
 Equip all possible resources with following tags or labels:
-  - `Terraform=true`, 
+  - `Terraform=true`
   - `Project=epam-tf-lab`
   - `Owner={StudentName}_{StudentSurname}`
 
@@ -254,14 +255,14 @@ Create the following resources:
 ### For AWS:
 -	Security group (`name=ssh-inbound`, `port=22`, `allowed_ip_range="your_IP or EPAM_office-IP_range"`, `description="allows ssh access from safe IP-range"`).
 -	Security group (`name=lb-http-inbound`, `port=80`, `allowed_ip_range="your_IP or EPAM_office-IP_range"`, `description="allows http access from safe IP-range to a LoadBalancer"`).
--	Security group (`name=http-inbound`, `port=80`, `source_security_group_id=id_of_lb-http-inbound_sg`, `description="allows http access from LoadBalancer"`). 
+-	Security group (`name=http-inbound`, `port=80`, `source_security_group_id=id_of_lb-http-inbound_sg`, `description="allows http access from LoadBalancer"`).
 - Make the most of the `aws_security_group_rule` resource.
 
 **Hint:** source_security_group_id is an attribute of[aws_security_group_rule resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule). For details about how to configure securitygroups for loadbalancer see [documentation] (https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-update-security-groups.html)
 
 ### For GCP:
 -	Firewall rule (`name=ssh-inbound`, `port=22`, `allowed_ip_ranges="your_IP or EPAM_office-IP_ranges"`, `description="allows ssh access from safe IP-range"`, `target_tags=web-instances`).
--	Firewall rule (`name=http-inbound`, `port=80`, `allowed_ip_ranges="130.211.0.0/22", "35.191.0.0/16", "your_IP or EPAM_office-IP_ranges"`, `description="allows http access from LoadBalancer"`, `target_tags=web-instances`). 
+-	Firewall rule (`name=http-inbound`, `port=80`, `allowed_ip_ranges="130.211.0.0/22", "35.191.0.0/16", "your_IP or EPAM_office-IP_ranges"`, `description="allows http access from LoadBalancer"`, `target_tags=web-instances`).
 
     **Hint:** These firewall should be created for the VPC which was created in the Task 1
 
@@ -271,10 +272,11 @@ Create the following resources:
 - Network security group (`name=lab-inbound`).
 - For the created network security group create rules:
   -	Network security rule (`name=http-inbound`, `destination_port_range=80`, `source_address_prefix="your_IP or EPAM_office-IP_range"`, `destination_address_prefix="subnet address range"`, `description="allows http access from safe IP-range to the subnet"`).
-  -	Network security rule (`name=ssh-inbound`, `destination_port_range=22`, `source_address_prefix="your_IP or EPAM_office-IP_range"`, `destination_address_prefix="subnet address range"`, `description="allows ssh access from safe IP-range"`). 
+  -	Network security rule (`name=ssh-inbound`, `destination_port_range=22`, `source_address_prefix="your_IP or EPAM_office-IP_range"`, `destination_address_prefix="subnet address range"`, `description="allows ssh access from safe IP-range"`).
+- Assign the NSG to sthe subnet.
 
 Equip all possible resources with following tags or labels:
-  - `Terraform=true`, 
+  - `Terraform=true`
   - `Project=epam-tf-lab`
   - `Owner={StudentName}_{StudentSurname}`
 
@@ -302,7 +304,7 @@ Create outputs for your configuration:
 ### For GCP:
 - Following outputs are required: `vpc_id`, `subnetworks_ids`[set of strings], `service_account_email`, `project_metadata_id`, `bucket_id`.
 ### For Azure:
-- Following outputs are required: `network_name`, `subnet_ids`[set of strings], `network_security_group_id`, `storage_container_name`,`storage_account_name`, `user_managed_identity_id`.
+- Following outputs are required: `network_name`, `subnet_id`, `network_security_group_id`, `storage_container_name`,`storage_account_name`, `user_managed_identity_id`.
 
 Run `terraform validate`  and `terraform fmt` to check if your configuration is valid and fits to a canonical format and style. Do this each time before applying your changes.
 Run `terraform plan` to see your changes.
@@ -354,7 +356,7 @@ Create required resources:
   Getting Compute Instance Metadata:
   ```
   COMPUTE_MACHINE_UUID=$(cat /sys/devices/virtual/dmi/id/product_uuid |tr '[:upper:]' '[:lower:]')
-  COMPUTE_INSTANCE_ID=$(replace this text with request instance id from metadata e.g. using curl)
+  COMPUTE_INSTANCE_ID=$(replace this text with request instance id from metadata e.g. using curl. Note that COMPUTE_INSTANCE_ID may have different name on different providers.)
   ```
 
 ### For AWS:
@@ -379,7 +381,7 @@ Create required resources:
 
 
 Equip all possible resources with following tags or labels:
-  - `Terraform=true`, 
+  - `Terraform=true`
   - `Project=epam-tf-lab`
   - `Owner={StudentName}_{StudentSurname}`
 
@@ -388,7 +390,7 @@ Run `terraform plan` to see your changes.
 
 Apply your changes when you're ready.
 
-As a result, each time a cloud compute instance launches a new file should be created in your cloud object storage. 
+As a result, each time a cloud compute instance launches a new file should be created in your cloud object storage.
 
 ### Definition of DONE:
 
