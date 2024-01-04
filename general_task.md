@@ -273,7 +273,7 @@ Create the following resources:
 - For the created network security group create rules:
   -	Network security rule (`name=http-inbound`, `destination_port_range=80`, `source_address_prefix="your_IP or EPAM_office-IP_range"`, `destination_address_prefix="subnet address range"`, `description="allows http access from safe IP-range to the subnet"`).
   -	Network security rule (`name=ssh-inbound`, `destination_port_range=22`, `source_address_prefix="your_IP or EPAM_office-IP_range"`, `destination_address_prefix="subnet address range"`, `description="allows ssh access from safe IP-range"`).
-- Assign the NSG to sthe subnet.
+- Assign the NSG to the subnet.
 
 Equip all possible resources with following tags or labels:
   - `Terraform=true`
