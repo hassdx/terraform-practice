@@ -93,3 +93,4 @@ resource "aws_vpc" "vpc2" {
 
 ## References
 [Terraform documentation](https://www.terraform.io/language/providers/configuration)
+[Version constrains](https://developer.hashicorp.com/terraform/language/expressions/version-constraints)

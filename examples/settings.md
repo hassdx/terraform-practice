@@ -97,3 +97,4 @@ terraform {
 
 ## References
 [Terraform documentation](https://www.terraform.io/language/settings)
+[Version constrains](https://developer.hashicorp.com/terraform/language/expressions/version-constraints)
