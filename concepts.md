@@ -59,7 +59,7 @@ The most important concept to grasp for beginners. Think of [Terraform state](ht
 
 What happens when you use commands like `terraform apply` or `terraform destroy`? The tool reconciles the desired state (configuration files with your code) with actual resources (in AWS in our case) and, if necessary, makes changes, modifying the state so it reflects the actual resources at the moment of successfully running the command.
 
-Terraform state can be stored locally (not recommended if you're not working alone and for security reasons) and in remote storage (e.g. in an S3 bucket which is usually specifically created for it). A place where the Terraform stores state file called **Backend**.
+Terraform state can be stored locally (not recommended if you're not working alone and for security reasons) and in remote storage (e.g. in an S3 bucket which is usually specifically created for it). A place where the Terraform stores state file is called the **Backend**.
  When Terraform runs, it locks the remote state so it can't be modified by other users while the infrastructure is being provisioned; this prevents state errors that can occur when two or more engineers modify the same resources at the same time.
 
 **Init, plan, apply, destroy and refresh**
