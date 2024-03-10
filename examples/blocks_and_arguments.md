@@ -26,6 +26,7 @@ Example 1:
         }
     }
 ```
+Example 2:
 
 ```
 terraform {                                                 # block with `type=terraform` but without labels
