@@ -150,7 +150,9 @@ For a brief but still substantial overall explanation of what Terraform is pleas
 
 - [Terraform documentation](https://www.terraform.io/docs). You will use it **a lot**. Most important sections to look at first:
 
-    - Tearraform language [description](https://developer.hashicorp.com/terraform/language)and [syntax](https://www.terraform.io/language/syntax/configuration)
+    - Terraform [files and directories](https://developer.hashicorp.com/terraform/language/files) documentation should help you to start with you first configuration.
+
+    - Tearraform language [description](https://developer.hashicorp.com/terraform/language) and [syntax](https://www.terraform.io/language/syntax/configuration).
 
     - [style conventions](https://www.terraform.io/language/syntax/style)
 
