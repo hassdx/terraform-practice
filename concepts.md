@@ -53,6 +53,8 @@ Finally, Terraform uses Hashicorp Configuration Language (HCL), which is designe
 
 Terraform configuration files (or simply configuration) is a complete document written in the HCL language that tells Terraform how to manage a given collection of infrastructure. A configuration can consist of multiple files and directories. It is important to remember that it represents the **desired state** of resources and does not represent the actual **provisioned resources**.
 
+ [Here](examples/blocks_and_arguments.md) you can read quick overview of HCL base concepts. You will learn more about HCL and it syntax later.
+
 **Terraform state**
 
 The most important concept to grasp for beginners. Think of [Terraform state](https://www.terraform.io/language/state) as a special database where the tool stores what it knows about your provisioned resources. State allows Terraform to know when and where to make changes described in configuration files. **Terraform state**, **provisioned resources** and **configuration files** are crucial to understand. Always remember those three separate entities that Terraform works with and why it works with them.
@@ -133,7 +135,7 @@ You can also use an additional tool like [Terraspace](https://github.com/boltops
 
 ## Terraform Code Snippets
 
-The raw theory is nothing without practical examples. 
+The raw theory is nothing without practical examples.
 
 So, you can find actual code examples [there](examples/README.md#terraform-code-snippets).
 
@@ -148,7 +150,7 @@ For a brief but still substantial overall explanation of what Terraform is pleas
 
 - [Terraform documentation](https://www.terraform.io/docs). You will use it **a lot**. Most important sections to look at first:
 
-    - [syntax](https://www.terraform.io/language/syntax/configuration)
+    - Tearraform language [description](https://developer.hashicorp.com/terraform/language)and [syntax](https://www.terraform.io/language/syntax/configuration)
 
     - [style conventions](https://www.terraform.io/language/syntax/style)
 
