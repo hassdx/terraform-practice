@@ -53,7 +53,7 @@ Finally, Terraform uses Hashicorp Configuration Language (HCL), which is designe
 
 Terraform configuration files (or simply configuration) is a complete document written in the HCL language that tells Terraform how to manage a given collection of infrastructure. A configuration can consist of multiple files and directories. It is important to remember that it represents the **desired state** of resources and does not represent the actual **provisioned resources**.
 
- [Here](examples/blocks_and_arguments.md) you can read quick overview of HCL base concepts. You will learn more about HCL and it syntax later.
+ [Here](examples/blocks_and_arguments.md) you can find quick overview of HCL base concepts. You will learn more about HCL and it syntax later.
 
 **Terraform state**
 
