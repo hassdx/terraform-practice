@@ -2,8 +2,11 @@
 
 There are two core constructs in HCL: arguments and blocks.
 
-A block is a container for other content, like nested blocks and arguments. A block has type and labels(zero, one or two labels in Terraform).
 An argument assigns a value to a particular name. Values could be any of value types or expression.
+
+
+A block is a container for other content, like nested blocks and arguments. A block has type and labels(zero, one or two labels in Terraform).
+
 
 ```
     resource "aws_instance" "foo" {                         # block with "resource_type" and "resource_label"
