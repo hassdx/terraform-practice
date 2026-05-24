@@ -40,9 +40,9 @@ resource "aws_security_group" "http-inbound" {
   vpc_id      = aws_vpc.HASSAN-ELHOUARI-01-vpc.id
 
   ingress {
-    from_port      = 80
-    to_port        = 80
-    protocol       = "tcp"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
     security_groups = [aws_security_group.lb-http-inbound.id]
   }
   tags = {
