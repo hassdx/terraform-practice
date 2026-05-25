@@ -23,9 +23,10 @@ resource "aws_launch_template" "epam-tf-lab" {
               COMPUTE_MACHINE_UUID=$(cat /sys/devices/virtual/dmi/id/product_uuid | tr '[:upper:]' '[:lower:]')
               COMPUTE_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
-              This message was generated on instance {COMPUTE_INSTANCE_ID} with the following UUID {COMPUTE_MACHINE_UUID}
+              echo "This message was generated on instance {COMPUTE_INSTANCE_ID} with the following UUID {COMPUTE_MACHINE_UUID}" > /tmp/message.txt
 
-              aws s3 cp /tmp/message.txt s3://epam-tf-lab-s3/message.txt
+              aws s3 cp /tmp/message.txt s3://$(data.terraform_remote_state.base.outputs.s3_bucket_name)/message.txt
+              
               echo "TASK 8: Message uploaded to S3 bucket" > /var/www/html/index.html
               EOF
   )
