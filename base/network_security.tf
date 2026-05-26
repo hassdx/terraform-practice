@@ -9,6 +9,13 @@ resource "aws_security_group" "ssh-inbound" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   tags = {
     Terraform = "true"
     Project   = "epam-tf-lab"
@@ -25,6 +32,13 @@ resource "aws_security_group" "lb-http-inbound" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
@@ -44,6 +58,13 @@ resource "aws_security_group" "http-inbound" {
     to_port         = 80
     protocol        = "tcp"
     security_groups = [aws_security_group.lb-http-inbound.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
     Terraform = "true"

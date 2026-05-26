@@ -2,13 +2,19 @@ resource "aws_launch_template" "epam-tf-lab" {
   name = "epam-tf-lab"
 
   image_id      = "ami-0236922087fa98b6e"
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   key_name      = data.terraform_remote_state.base.outputs.key_pair_name
 
-  vpc_security_group_ids = [
-    data.terraform_remote_state.base.outputs.security_group_id_ssh,
-    data.terraform_remote_state.base.outputs.security_group_id_http
-  ]
+  network_interfaces {
+    associate_public_ip_address = true
+    delete_on_termination       = true
+
+    security_groups = [
+      data.terraform_remote_state.base.outputs.security_group_id_ssh,
+      data.terraform_remote_state.base.outputs.security_group_id_http
+    ]
+
+  }
 
   iam_instance_profile {
     name = data.terraform_remote_state.base.outputs.iam_instance_profile_name
@@ -16,26 +22,29 @@ resource "aws_launch_template" "epam-tf-lab" {
 
   user_data = base64encode(<<-EOF
               #!/bin/bash
-              sudo yum update -y
-              sudo yum install -y httpd
-              sudo systemctl start httpd
-              sudo systemctl enable httpd
-              COMPUTE_MACHINE_UUID=$(cat /sys/devices/virtual/dmi/id/product_uuid | tr '[:upper:]' '[:lower:]')
-              COMPUTE_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+                #!/bin/bash
+                set -e
 
-              echo "This message was generated on instance {COMPUTE_INSTANCE_ID} with the following UUID {COMPUTE_MACHINE_UUID}" > /tmp/message.txt
+                yum update -y
+                yum install -y aws-cli
 
-              aws s3 cp /tmp/message.txt s3://$(data.terraform_remote_state.base.outputs.s3_bucket_name)/message.txt
-              
-              echo "TASK 8: Message uploaded to S3 bucket" > /var/www/html/index.html
+                COMPUTE_MACHINE_UUID=$(cat /sys/devices/virtual/dmi/id/product_uuid | tr '[:upper:]' '[:lower:]')
+                COMPUTE_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+
+                MESSAGE="This message was generated on instance $${COMPUTE_INSTANCE_ID} with the following UUID $${COMPUTE_MACHINE_UUID}"
+
+                echo "$MESSAGE" > /tmp/message.txt
+
+                aws s3 cp /tmp/message.txt s3://YOUR_BUCKET_NAME/$${COMPUTE_INSTANCE_ID}.txt
+
+                yum install -y httpd
+                systemctl enable httpd
+                systemctl start httpd
+
+                echo "$MESSAGE" > /var/www/html/index.html
               EOF
   )
 
-
-  network_interfaces {
-    associate_public_ip_address = true
-    delete_on_termination       = true
-  }
 
   tags = {
     Terraform = "true"
