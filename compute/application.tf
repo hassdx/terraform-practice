@@ -20,28 +20,19 @@ resource "aws_launch_template" "epam-tf-lab" {
     name = data.terraform_remote_state.base.outputs.iam_instance_profile_name
   }
 
+  metadata_options {
+    http_tokens = "optional"
+  }
   user_data = base64encode(<<-EOF
               #!/bin/bash
-                #!/bin/bash
-                set -e
-
-                yum update -y
-                yum install -y aws-cli
-
-                COMPUTE_MACHINE_UUID=$(cat /sys/devices/virtual/dmi/id/product_uuid | tr '[:upper:]' '[:lower:]')
-                COMPUTE_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
-
-                MESSAGE="This message was generated on instance $${COMPUTE_INSTANCE_ID} with the following UUID $${COMPUTE_MACHINE_UUID}"
-
-                echo "$MESSAGE" > /tmp/message.txt
-
-                aws s3 cp /tmp/message.txt s3://YOUR_BUCKET_NAME/$${COMPUTE_INSTANCE_ID}.txt
-
-                yum install -y httpd
-                systemctl enable httpd
-                systemctl start httpd
-
-                echo "$MESSAGE" > /var/www/html/index.html
+              yum install -y httpd aws-cli
+              COMPUTE_MACHINE_UUID=$(cat /sys/devices/virtual/dmi/id/product_uuid | tr '[:upper:]' '[:lower:]')
+              COMPUTE_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+              MESSAGE="This message was generated on instance $${COMPUTE_INSTANCE_ID} with the following UUID $${COMPUTE_MACHINE_UUID}"
+              echo "$${MESSAGE}" > /tmp/message.txt
+              aws s3 cp /tmp/message.txt s3://${data.terraform_remote_state.base.outputs.s3_bucket_name}/$${COMPUTE_INSTANCE_ID}.txt
+              echo "$${MESSAGE}" > /var/www/html/index.html
+              systemctl start httpd
               EOF
   )
 
