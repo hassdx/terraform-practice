@@ -51,8 +51,8 @@ resource "aws_lb_target_group" "target_group" {
   vpc_id   = data.terraform_remote_state.base.outputs.vpc_id
 }
 
-resource "aws_lb" "application_lb" {
-  name               = "application-lb"
+resource "aws_lb" "elb-epam-tf-lab" {
+  name               = "elb-epam-tf-lab"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [data.terraform_remote_state.base.outputs.security_group_id_lb_http]
@@ -70,7 +70,7 @@ resource "aws_lb" "application_lb" {
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.application_lb.arn
+  load_balancer_arn = aws_lb.elb-epam-tf-lab.arn
   port              = 80
   protocol          = "HTTP"
 
@@ -106,6 +106,11 @@ resource "aws_autoscaling_group" "epam-tf-lab" {
       target_group_arns
     ]
   }
+}
+
+resource "aws_autoscaling_attachment" "asg_attachment" {
+  autoscaling_group_name = aws_autoscaling_group.epam-tf-lab.name
+  lb_target_group_arn    = aws_lb_target_group.target_group.arn
 }
 
 
