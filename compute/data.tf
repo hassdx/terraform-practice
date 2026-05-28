@@ -1,8 +1,10 @@
 data "terraform_remote_state" "base" {
-  backend = "local"
+  backend = "s3"
 
   config = {
-    path = "../base/terraform.tfstate"
+    bucket = "epam-aws-tf-state-dx560"
+    key            = "compute/terraform.tfstate"
+    region         = "us-east-1"
   }
 }
 
