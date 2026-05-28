@@ -10,14 +10,14 @@ resource "aws_launch_template" "epam-tf-lab" {
     delete_on_termination       = true
 
     security_groups = [
-      data.terraform_remote_state.base.outputs.security_group_id_ssh,
-      data.terraform_remote_state.base.outputs.security_group_id_http
+      data.aws_security_group.ssh.id,
+      data.aws_security_group.lb_http.id
     ]
 
   }
 
   iam_instance_profile {
-    name = data.terraform_remote_state.base.outputs.iam_instance_profile_name
+    name = local.iam_instance_profile_name
   }
 
   metadata_options {
@@ -48,18 +48,18 @@ resource "aws_lb_target_group" "target_group" {
   name     = "target-group"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = data.terraform_remote_state.base.outputs.vpc_id
+  vpc_id   = data.aws_vpc.my_vpc.id
 }
 
 resource "aws_lb" "elb-epam-tf-lab" {
   name               = "elb-epam-tf-lab"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [data.terraform_remote_state.base.outputs.security_group_id_lb_http]
+  security_groups    = [data.aws_security_group.lb_http.id]
   subnets = [
-    data.terraform_remote_state.base.outputs.public_subnet_a_id,
-    data.terraform_remote_state.base.outputs.public_subnet_b_id,
-    data.terraform_remote_state.base.outputs.public_subnet_c_id
+    data.aws_subnet.public_subnet_a.id,
+    data.aws_subnet.public_subnet_b.id,
+    data.aws_subnet.public_subnet_c.id
   ]
 
   tags = {
@@ -88,9 +88,9 @@ resource "aws_autoscaling_group" "epam-tf-lab" {
   desired_capacity = 1
 
   vpc_zone_identifier = [
-    data.terraform_remote_state.base.outputs.public_subnet_a_id,
-    data.terraform_remote_state.base.outputs.public_subnet_b_id,
-    data.terraform_remote_state.base.outputs.public_subnet_c_id
+    data.aws_subnet.public_subnet_a.id,
+    data.aws_subnet.public_subnet_b.id,
+    data.aws_subnet.public_subnet_c.id
   ]
 
   launch_template {
