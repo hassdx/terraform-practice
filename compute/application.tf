@@ -3,7 +3,7 @@ resource "aws_launch_template" "epam-tf-lab" {
 
   image_id      = "ami-0236922087fa98b6e"
   instance_type = "t3.micro"
-  key_name      = data.terraform_remote_state.base.outputs.key_pair_name
+  key_name      = local.key_name
 
   network_interfaces {
     associate_public_ip_address = true

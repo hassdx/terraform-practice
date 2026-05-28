@@ -26,9 +26,9 @@ output "security_group_id_http" {
   value = aws_security_group.http-inbound.id
 }
 
-output "key_pair_name" {
-  value = aws_key_pair.epam-tf-ssh-key.key_name
-}
+# output "key_pair_name" {
+#   value = aws_key_pair.epam-tf-ssh-key.key_name
+# }
 
 output "iam_instance_profile_name" {
   value = aws_iam_instance_profile.ec2-profile.name
