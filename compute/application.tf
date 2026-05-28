@@ -93,8 +93,6 @@ resource "aws_autoscaling_group" "epam-tf-lab" {
     data.terraform_remote_state.base.outputs.public_subnet_c_id
   ]
 
-  target_group_arns = [aws_lb_target_group.target_group.arn]
-
   launch_template {
     id      = aws_launch_template.epam-tf-lab.id
     version = "$Latest"
