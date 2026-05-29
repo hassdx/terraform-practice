@@ -3,7 +3,7 @@ data "terraform_remote_state" "base" {
 
   config = {
     bucket = "epam-aws-tf-state-dx560"
-    key    = "compute/terraform.tfstate"
+    key    = "base/terraform.tfstate"
     region = "us-east-1"
   }
 }

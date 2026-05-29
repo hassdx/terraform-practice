@@ -25,14 +25,14 @@ resource "aws_launch_template" "epam-tf-lab" {
   }
   user_data = base64encode(<<-EOF
               #!/bin/bash
-              yum install -y httpd aws-cli
+              yum install -y nginx aws-cli
               COMPUTE_MACHINE_UUID=$(cat /sys/devices/virtual/dmi/id/product_uuid | tr '[:upper:]' '[:lower:]')
               COMPUTE_INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
               MESSAGE="This message was generated on instance $${COMPUTE_INSTANCE_ID} with the following UUID $${COMPUTE_MACHINE_UUID}"
               echo "$${MESSAGE}" > /tmp/message.txt
               aws s3 cp /tmp/message.txt s3://${data.terraform_remote_state.base.outputs.s3_bucket_name}/$${COMPUTE_INSTANCE_ID}.txt
-              echo "$${MESSAGE}" > /var/www/html/index.html
-              systemctl start httpd
+              echo "$${MESSAGE}" > /usr/share/nginx/html/index.html
+              systemctl start nginx
               EOF
   )
 
